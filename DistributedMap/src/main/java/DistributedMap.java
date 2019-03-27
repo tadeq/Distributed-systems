@@ -72,6 +72,12 @@ public class DistributedMap implements SimpleStringMap {
 
     @Override
     public Integer remove(String key) {
+        try {
+            channel.send(new Message(null, null, "remove " + key));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
         return map.remove(key);
     }
 }

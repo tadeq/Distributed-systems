@@ -22,8 +22,13 @@ public class Receiver extends ReceiverAdapter {
         String message = (String) msg.getObject();
         System.out.println("SOURCE: " + msg.getSrc() + "\nTEXT: " + message);
         String[] parts = message.split(" ");
-        if (parts[0].equals("put")) {
-            distributedMap.getMap().put(parts[1], Integer.parseInt(parts[2]));
+        switch (parts[0]) {
+            case "put":
+                distributedMap.getMap().put(parts[1], Integer.parseInt(parts[2]));
+                break;
+            case "remove":
+                distributedMap.getMap().remove(parts[1]);
+                break;
         }
     }
 
